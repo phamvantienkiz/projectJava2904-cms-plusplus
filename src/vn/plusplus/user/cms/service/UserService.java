@@ -6,10 +6,6 @@ import vn.plusplus.user.cms.model.User;
 import java.util.List;
 
 public class UserService implements UserInterface {
-    @Override
-    public boolean checkUserByUserName(String userName) {
-        return false;
-    }
 
     @Override
     public List<User> readAllUserFromDB() {
@@ -27,7 +23,22 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public void sendEmailToResetPass(String email) {
+    public User getUserByEmail(String email) {
+        return null;
+    }
 
+    @Override
+    public void sendTokenToEmail(String email) {
+
+    }
+
+    @Override
+    public User findUserByUserName(String userName) {
+        return null;
+    }
+
+    @Override
+    public List<User> findAllUserOderByScoreDesc() {
+        return null;
     }
 }

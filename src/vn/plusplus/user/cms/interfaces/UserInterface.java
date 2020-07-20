@@ -5,12 +5,22 @@ import vn.plusplus.user.cms.model.User;
 import java.util.List;
 
 public interface UserInterface {
-    boolean checkUserByUserName(String userName);
+
     List<User> readAllUserFromDB();
+
+    // Register feature
+//    boolean checkUserByUserName(String userName);
     void saveUserToDB(User user);
 
+    // Login feature
     User findUserByUserNameAndPassword(String userName, String passWord);
 
-    void sendEmailToResetPass(String email);
+    // Reset password
+    User getUserByEmail(String email);
+    void sendTokenToEmail(String email);
+
+    // Search
+    User findUserByUserName(String userName);
+    List<User> findAllUserOderByScoreDesc();
 
 }
