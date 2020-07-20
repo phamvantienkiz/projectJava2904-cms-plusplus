@@ -16,7 +16,7 @@ public interface UserInterface {
     User findUserByUserNameAndPassword(String userName, String passWord);
 
     // Reset password
-    User getUserByEmail(String email);
+        User getUserByEmail(String email);
     void sendTokenToEmail(String email);
 
     // Search
