@@ -4,10 +4,8 @@ package vn.plusplus.user.cms.service;
 import vn.plusplus.user.cms.interfaces.UserInterface;
 import vn.plusplus.user.cms.model.User;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,9 +77,29 @@ public class UserService implements UserInterface {
     }
 
     @Override
-    public void saveUserToDB(User user) {
+    public void saveUserToDB(User user) throws IOException {
 
-    }
+            FileReader fileReader = null;
+            BufferedReader bufferedReader = null;
+
+            try {
+                fileReader = new FileReader("user.txt");
+                bufferedReader = new BufferedReader(fileReader,10);
+                String line = "";
+                while ((bufferedReader.readLine()) !=null)
+                {
+                    line = bufferedReader.readLine();
+                    System.out.println(line);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            finally {
+                fileReader.close();
+                bufferedReader.close();
+            }
+        }
+
 
     @Override
     public User findUserByUserNameAndPassword(String userName, String passWord) {

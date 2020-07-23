@@ -2,6 +2,7 @@ package vn.plusplus.user.cms.interfaces;
 
 import vn.plusplus.user.cms.model.User;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserInterface {
@@ -10,7 +11,7 @@ public interface UserInterface {
 
     // Register feature
 //    boolean checkUserByUserName(String userName);
-    void saveUserToDB(User user);
+    void saveUserToDB(User user) throws IOException;
 
     // Login feature
     User findUserByUserNameAndPassword(String userName, String passWord);
