@@ -1,6 +1,6 @@
 package vn.plusplus.user.cms.service;
 
-import com.sun.deploy.cache.CacheEntry;
+
 import vn.plusplus.user.cms.interfaces.UserInterface;
 import vn.plusplus.user.cms.model.User;
 
@@ -85,6 +85,16 @@ public class UserService implements UserInterface {
 
     @Override
     public User findUserByUserNameAndPassword(String userName, String passWord) {
+        readAllUserFromDB();
+        for (int i =0;i<readAllUserFromDB().size();i++){
+            if (userName.equals(readAllUserFromDB().get(i).getUserName()) && passWord.equals(readAllUserFromDB().get(i).getPassword())){
+                return readAllUserFromDB().get(i);
+            }
+            else{
+                return null;
+            }
+        }
+
         return null;
     }
 
