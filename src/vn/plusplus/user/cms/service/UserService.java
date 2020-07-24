@@ -17,9 +17,10 @@ public class UserService implements UserInterface {
         List<User> users = new ArrayList<>();
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
-
+        File file = new File("data/user.txt");
+        String filePath = file.getAbsolutePath();
         try {
-            fileReader = new FileReader("/data/user.txt");
+            fileReader = new FileReader(filePath);
             bufferedReader = new BufferedReader(fileReader);
             int i = 0;
             String line = "";
@@ -32,25 +33,25 @@ public class UserService implements UserInterface {
             String passwords = "";
             while ((line = bufferedReader.readLine()) != null){
                 //userName=VALUE###fullName=VALUE###email=VALUE###phone=VALUE###score=VALUE###password=VALUE
-                String[] fileLine = line.split("[###]");
+                String[] fileLine = line.split("###");
                 //cat username tu file
-                String[] fileuname = fileLine[0].split("[=]");
+                String[] fileuname = fileLine[0].split("=");
                 usernames = fileuname[1];
-                //cat full name tu file
-                String[] filefullname = fileLine[1].split("[=]");
+                //cat fullname tu file
+                String[] filefullname = fileLine[1].split("=");
                 fullnames = filefullname[1];
                 //cat email tu file
-                String[] filemail = fileLine[2].split("[=]");
+                String[] filemail = fileLine[2].split("=");
                 emails = filemail[1];
                 //cat phone tu file
-                String[] filephone = fileLine[3].split("[=]");
+                String[] filephone = fileLine[3].split("=");
                 phones = filephone[1];
                 //cat score tu file
-                String[] filescores = fileLine[4].split("[=]");
+                String[] filescores = fileLine[4].split("=");
                 scorestr = filescores[1];
                 scores = Integer.parseInt(scorestr);
                 //cat password tu file
-                String[] filepass = fileLine[5].split("[=]");
+                String[] filepass = fileLine[5].split("=");
                 passwords = filepass[1];
                 //chuyen cac thanh phan vao trong liss<User>
                 users.add(new User(usernames, fullnames, emails, phones, scores, passwords ));
@@ -128,16 +129,16 @@ public class UserService implements UserInterface {
 
     @Override
     public User findUserByUserName(String userName) {
-        /*User findUserbyUsername = null;
-        for (int i = 0; i < user.size(); i++) {
-            if (users.get(i).getUsername().equals(userName)) {
-                findUserbyUsername = users.get(i);
+        User findUserbyUsername = null;
+        for (int i = 0; i < readAllUserFromDB().size(); i++) {
+            if (userName.equals(readAllUserFromDB().get(i).getUserName())) {
+                findUserbyUsername = readAllUserFromDB().get(i);
             }else {
                 findUserbyUsername = null;
             }
         }
-        return findUserbyUsername;*/
-        return null;
+        return findUserbyUsername;
+        //return null;
     }
 
     @Override
