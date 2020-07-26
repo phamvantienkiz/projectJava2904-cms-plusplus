@@ -104,10 +104,10 @@ public class UserService implements UserInterface {
 
     @Override
     public User findUserByUserNameAndPassword(String userName, String passWord) {
-        readAllUserFromDB();
-        for (int i =0;i<readAllUserFromDB().size();i++){
-            if (userName.equals(readAllUserFromDB().get(i).getUserName()) && passWord.equals(readAllUserFromDB().get(i).getPassword())){
-                return readAllUserFromDB().get(i);
+        List<User> users = readAllUserFromDB();
+        for (int i =0;i<users.size();i++){
+            if (userName.equals(users.get(i).getUserName()) && passWord.equals(users.get(i).getPassword())){
+                return users.get(i);
             }
             else{
                 return null;
