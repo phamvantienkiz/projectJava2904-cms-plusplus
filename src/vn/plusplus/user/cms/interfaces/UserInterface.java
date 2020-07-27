@@ -10,14 +10,14 @@ public interface UserInterface {
     List<User> readAllUserFromDB();
 
     // Register feature
-//    boolean checkUserByUserName(String userName);
+//    User findUserByUserName(String userName);
     void saveUserToDB(User user) throws IOException;
 
     // Login feature
     User findUserByUserNameAndPassword(String userName, String passWord);
 
     // Reset password
-        User getUserByEmail(String email);
+    User getUserByEmail(String email);
     void sendTokenToEmail(String email);
 
     // Search

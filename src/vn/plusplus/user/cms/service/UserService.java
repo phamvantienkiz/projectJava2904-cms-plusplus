@@ -22,7 +22,6 @@ public class UserService implements UserInterface {
         try {
             fileReader = new FileReader(filePath);
             bufferedReader = new BufferedReader(fileReader);
-            int i = 0;
             String line = "";
             String usernames = "";
             String fullnames = "";
@@ -52,7 +51,6 @@ public class UserService implements UserInterface {
                 } //Đã Fix
                 //chuyen cac thanh phan vao trong liss<User>
                 users.add(new User(usernames, fullnames, emails, phones, scores, passwords ));
-                i++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -76,9 +74,24 @@ public class UserService implements UserInterface {
 
     @Override
     public void saveUserToDB(User user) throws IOException {
-        user = new User();
+//        user = new User();
+
+        File file = new File("data/user.txt");
+        String filePath = file.getAbsolutePath();
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+        bufferedWriter.newLine();
+        bufferedWriter.write(user.toString());
+        bufferedWriter.flush();
+
+        bufferedWriter.close();
+        fileWriter.close();
+
+        /*
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
+        //userName=VALUE###fullName=VALUE###email=VALUE###....
         try {
             fileOutputStream = new FileOutputStream("user.txt");
             try {
@@ -106,20 +119,17 @@ public class UserService implements UserInterface {
             fileOutputStream.close();
             objectInputStream.close();
             objectOutputStream.close();
-        }
-
-
+        }*/
     }
 
     @Override
     public User findUserByUserNameAndPassword(String userName, String passWord) {
         List<User> users = readAllUserFromDB();
-        for (int i =0;i<users.size();i++){
-            if (userName.equals(users.get(i).getUserName()) && passWord.equals(users.get(i).getPassword())){
-                return users.get(i);
+        for (User user : users){
+            if (userName.equals(user.getUserName()) && passWord.equals(user.getPassword())){
+                return user;
             }
         }
-
         return null;
     }
 
@@ -137,11 +147,10 @@ public class UserService implements UserInterface {
     public User findUserByUserName(String userName) {
         List<User> users = readAllUserFromDB();
         User findUserbyUsername = null;
-        for (int i = 0; i < users.size(); i++) {
-            if (userName.equals(users.get(i).getUserName())) {
-                findUserbyUsername = users.get(i);
-            }else {
-                findUserbyUsername = null;
+        for (User user : users) {
+            if (userName.equals(user.getUserName())) {
+                findUserbyUsername = user;
+                break;
             }
         }
         return findUserbyUsername;
