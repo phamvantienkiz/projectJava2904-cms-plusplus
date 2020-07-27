@@ -31,6 +31,7 @@ public class Application {
                     } else {
                         userRe = new User();
                         System.out.println("Nhap vao fullName:");
+                        String fullName =scanner.nextLine();
                         service.saveUserToDB(userRe);
                     }
                     break;

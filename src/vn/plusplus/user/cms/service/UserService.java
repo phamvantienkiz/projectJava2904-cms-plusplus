@@ -135,6 +135,16 @@ public class UserService implements UserInterface {
 
     @Override
     public User getUserByEmail(String email) {
+
+        List<User> users = readAllUserFromDB();
+        for(User user : users)
+        {
+            if(email.equals(user.getEmail()))
+            {
+                return user;
+            }
+        }
+
         return null;
     }
 
