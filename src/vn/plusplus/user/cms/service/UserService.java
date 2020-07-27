@@ -109,9 +109,6 @@ public class UserService implements UserInterface {
             if (userName.equals(users.get(i).getUserName()) && passWord.equals(users.get(i).getPassword())){
                 return users.get(i);
             }
-            else{
-                return null;
-            }
         }
 
         return null;
