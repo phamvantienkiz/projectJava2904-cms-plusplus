@@ -29,30 +29,20 @@ public class UserService implements UserInterface {
             String emails = "";
             String phones = "";
             String scorestr = "";
-            int scores;
+            int scores = 0;
             String passwords = "";
             while ((line = bufferedReader.readLine()) != null){
                 //userName=VALUE###fullName=VALUE###email=VALUE###phone=VALUE###score=VALUE###password=VALUE
                 String[] fileLine = line.split("###");
                 //cat username tu file
-                String[] fileuname = fileLine[0].split("=");
-                usernames = fileuname[1];
-                //cat fullname tu file
-                String[] filefullname = fileLine[1].split("=");
-                fullnames = filefullname[1];
-                //cat email tu file
-                String[] filemail = fileLine[2].split("=");
-                emails = filemail[1];
-                //cat phone tu file
-                String[] filephone = fileLine[3].split("=");
-                phones = filephone[1];
-                //cat score tu file
-                String[] filescores = fileLine[4].split("=");
-                scorestr = filescores[1];
-                scores = Integer.parseInt(scorestr);
-                //cat password tu file
-                String[] filepass = fileLine[5].split("=");
-                passwords = filepass[1];
+                for(String st : fileLine){
+                    String[] items = st.split("=");
+                    if(items[0].equals("userName")){
+                        usernames = items[1];
+                    }
+                    // Lam tuong tu cac truong khac
+                }
+
                 //chuyen cac thanh phan vao trong liss<User>
                 users.add(new User(usernames, fullnames, emails, phones, scores, passwords ));
                 i++;
