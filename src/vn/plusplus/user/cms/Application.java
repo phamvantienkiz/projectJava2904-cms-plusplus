@@ -3,9 +3,25 @@ package vn.plusplus.user.cms;
 import vn.plusplus.user.cms.model.User;
 import vn.plusplus.user.cms.service.UserService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
+
+    public static boolean login(String userName, String passWord)
+    {
+        UserService service = new UserService();
+        List<User> users = service.readAllUserFromDB();
+        for(int i=0;i<users.size();i++)
+        {
+            if(users.get(i).getUserName().equals(userName) && users.get(i).getPassword().equals(passWord))
+            {
+                    return true;
+            }
+
+        }
+        return false;
+    }
 
     public static void main(String[] args) throws Exception{
         boolean ketThuc = true;
@@ -36,6 +52,23 @@ public class Application {
                     }
                     break;
                 case 2:
+
+                    System.out.println(" Nhập UserName: ");
+                    String userName =scanner.nextLine();
+
+                    System.out.println(" Nhập Password: ");
+                    String passWord = scanner.nextLine();
+                    if(login(userName,passWord) == true)
+                    {
+                        System.out.println(" Đăng nhập thành công!");
+                    }
+                    else
+                    {
+                        System.out.println(" Sai tên tài khoản hoặc mật khẩu!");
+                    }
+                    break;
+
+
 
                 case 5:
                     ketThuc = false;
