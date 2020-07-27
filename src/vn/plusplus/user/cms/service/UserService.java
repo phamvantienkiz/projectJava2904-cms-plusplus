@@ -28,7 +28,6 @@ public class UserService implements UserInterface {
             String fullnames = "";
             String emails = "";
             String phones = "";
-            String scorestr = "";
             int scores = 0;
             String passwords = "";
             while ((line = bufferedReader.readLine()) != null){
@@ -39,10 +38,18 @@ public class UserService implements UserInterface {
                     String[] items = st.split("=");
                     if(items[0].equals("userName")){
                         usernames = items[1];
+                    } else if (items[0].equals("fullName")){
+                        fullnames = items[1];
+                    } else if (items[0].equals("email")){
+                        emails = items[1];
+                    } else if (items[0].equals("phone")){
+                        phones = items[1];
+                    }else if (items[0].equals("score")){
+                        scores = Integer.parseInt(items[1]);
+                    } else if (items[0].equals("password")){
+                        passwords = items[1];
                     }
-                    // Lam tuong tu cac truong khac
-                }
-
+                } //Đã Fix
                 //chuyen cac thanh phan vao trong liss<User>
                 users.add(new User(usernames, fullnames, emails, phones, scores, passwords ));
                 i++;
@@ -128,16 +135,17 @@ public class UserService implements UserInterface {
 
     @Override
     public User findUserByUserName(String userName) {
+        List<User> users = readAllUserFromDB();
         User findUserbyUsername = null;
-        for (int i = 0; i < readAllUserFromDB().size(); i++) {
-            if (userName.equals(readAllUserFromDB().get(i).getUserName())) {
-                findUserbyUsername = readAllUserFromDB().get(i);
+        for (int i = 0; i < users.size(); i++) {
+            if (userName.equals(users.get(i).getUserName())) {
+                findUserbyUsername = users.get(i);
             }else {
                 findUserbyUsername = null;
             }
         }
         return findUserbyUsername;
-        //return null;
+        //Đã Fix
     }
 
     @Override
