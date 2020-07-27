@@ -1,6 +1,8 @@
 package vn.plusplus.user.cms.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String userName;
     private String fullName;
     private String email;
@@ -66,5 +68,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", score=" + score +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

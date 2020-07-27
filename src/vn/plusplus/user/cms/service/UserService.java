@@ -69,28 +69,34 @@ public class UserService implements UserInterface {
 
     @Override
     public void saveUserToDB(User user) throws IOException {
-
-            FileReader fileReader = null;
-            BufferedReader bufferedReader = null;
-
+        user = new User();
+        FileOutputStream fileOutputStream = null;
+        ObjectOutputStream objectOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream("user.txt");
             try {
-                fileReader = new FileReader("user.txt");
-                bufferedReader = new BufferedReader(fileReader,10);
-                String line = "";
-                while ((bufferedReader.readLine()) !=null)
-                {
-                    line = bufferedReader.readLine();
-                    System.out.println(line);
-                }
-            } catch (FileNotFoundException e) {
+                objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(user);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            finally {
-                fileReader.close();
-                bufferedReader.close();
-            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        FileInputStream fileInputStream = null;
+        ObjectInputStream objectInputStream = null;
+
+        fileInputStream = new FileInputStream("user.txt");
+        objectInputStream = new ObjectInputStream(fileInputStream);
+        try {
+            User user2 = (User) objectInputStream.readObject();
+            System.out.println(user2.toString());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
+
+    }
 
     @Override
     public User findUserByUserNameAndPassword(String userName, String passWord) {
