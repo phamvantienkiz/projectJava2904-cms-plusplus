@@ -94,6 +94,12 @@ public class UserService implements UserInterface {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        finally {
+            fileInputStream.close();
+            fileOutputStream.close();
+            objectInputStream.close();
+            objectOutputStream.close();
+        }
 
 
     }
