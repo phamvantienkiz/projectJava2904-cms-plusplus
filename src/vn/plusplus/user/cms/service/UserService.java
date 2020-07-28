@@ -7,6 +7,8 @@ import vn.plusplus.user.cms.model.User;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserService implements UserInterface {
@@ -169,6 +171,23 @@ public class UserService implements UserInterface {
 
     @Override
     public List<User> findAllUserOderByScoreDesc() {
-        return null;
+        List<User> users = readAllUserFromDB();
+        Collections.sort(users, new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                if (o1.getScore() < o2.getScore()) {
+                    return 1;
+                } else {
+                    if (o1.getScore() == o2.getScore()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+
+            }
+        });
+        return users;
+
     }
 }
