@@ -31,28 +31,28 @@ public class UserService implements UserInterface {
             String phones = "";
             int scores = 0;
             String passwords = "";
-            while ((line = bufferedReader.readLine()) != null){
+            while ((line = bufferedReader.readLine()) != null) {
                 //userName=VALUE###fullName=VALUE###email=VALUE###phone=VALUE###score=VALUE###password=VALUE
                 String[] fileLine = line.split("###");
                 //cat username tu file
-                for(String st : fileLine){
+                for (String st : fileLine) {
                     String[] items = st.split("=");
-                    if(items[0].equals("userName")){
+                    if (items[0].equals("userName")) {
                         usernames = items[1];
-                    } else if (items[0].equals("fullName")){
+                    } else if (items[0].equals("fullName")) {
                         fullnames = items[1];
-                    } else if (items[0].equals("email")){
+                    } else if (items[0].equals("email")) {
                         emails = items[1];
-                    } else if (items[0].equals("phone")){
+                    } else if (items[0].equals("phone")) {
                         phones = items[1];
-                    }else if (items[0].equals("score")){
+                    } else if (items[0].equals("score")) {
                         scores = Integer.parseInt(items[1]);
-                    } else if (items[0].equals("password")){
+                    } else if (items[0].equals("password")) {
                         passwords = items[1];
                     }
                 } //Đã Fix
                 //chuyen cac thanh phan vao trong liss<User>
-                users.add(new User(usernames, fullnames, emails, phones, scores, passwords ));
+                users.add(new User(usernames, fullnames, emails, phones, scores, passwords));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -127,8 +127,8 @@ public class UserService implements UserInterface {
     @Override
     public User findUserByUserNameAndPassword(String userName, String passWord) {
         List<User> users = readAllUserFromDB();
-        for (User user : users){
-            if (userName.equals(user.getUserName()) && passWord.equals(user.getPassword())){
+        for (User user : users) {
+            if (userName.equals(user.getUserName()) && passWord.equals(user.getPassword())) {
                 return user;
             }
         }
@@ -139,10 +139,8 @@ public class UserService implements UserInterface {
     public User getUserByEmail(String email) {
 
         List<User> users = readAllUserFromDB();
-        for(User user : users)
-        {
-            if(email.equals(user.getEmail()))
-            {
+        for (User user : users) {
+            if (email.equals(user.getEmail())) {
                 return user;
             }
         }
@@ -190,4 +188,60 @@ public class UserService implements UserInterface {
         return users;
 
     }
+
+    public boolean checkToken(String username, String token) {
+
+        boolean checkToken = false;
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        File file = new File("token.txt");
+        String filePath = file.getAbsolutePath();
+        try {
+            fileReader = new FileReader(filePath);
+            bufferedReader = new BufferedReader(fileReader);
+            String line = "";
+            String usernames = "";
+            String tokens = "";
+            String times = "";
+
+            //username=kiemnx;token=123456;time=2020-07-20 21:53:00
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] fileLine = line.split(";");
+                for (String st : fileLine) {
+                    String[] items = st.split("=");
+                    if (items[0].equals("userName")) {
+                        usernames = items[1];
+                    } else if (items[0].equals("fullName")) {
+                        tokens = items[1];
+                    } else if (items[0].equals("email")) {
+                        times = items[1];
+                    }
+                }
+                if (usernames.equals(username)) {
+                    if (tokens.equals(token)) {
+                        checkToken = true;
+                    }
+                    break;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return checkToken;
+    }
 }
+
