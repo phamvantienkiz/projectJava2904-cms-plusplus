@@ -102,9 +102,49 @@ public class Application {
                     } else {
                         System.out.println("Không tìm thấy Email vui lòng nhập lại: ");
                     }
+                    break;
+                case 4:
+                    System.out.println("1.Tìm kiếm user theo tên\n "+
+                            "2.Tìm kiếm user theo xếp hạng");
+                    int choose = scanner.nextInt();
+                    switch (choose){
+                        case 1:
+                            System.out.println("Mời bạn nhập tên user:");
+                            String nameUser =scanner.nextLine();
+                            User finduserbyname =service.findUserByUserName(nameUser);
+                            if (finduserbyname == null){
+                                System.out.println("Tên user không tồn tại mời bạn nhập lại");
+                            }
+                            else {
+                                System.out.println("Tên: "+finduserbyname.getUserName());
+                                System.out.println("Tên đây đủ: "+finduserbyname.getFullName());
+                                System.out.println("SĐT: "+finduserbyname.getPhone());
+                                System.out.println("Điểm: "+finduserbyname.getScore());
+                                System.out.println("Email: "+finduserbyname.getEmail());
+                            }
+                            break;
+                        case 2:
+                            List<User> users = service.findAllUserOderByScoreDesc();
+                            System.out.println("Mời bạng nhập xếp hạng của user:");
+                            int rank = scanner.nextInt();
+                            if (rank > users.size()){
+                                System.out.println("Xếp hạng của user cần tìm không tồn tại mời bạn nhập lại");
+                            }
+                            else {
+                                User userbyrank = users.get(rank-1);
+                                System.out.println("Tên: "+userbyrank.getUserName());
+                                System.out.println("Tên đầy đủ: "+userbyrank.getFullName());
+                                System.out.println("SĐT: "+userbyrank.getPhone());
+                                System.out.println("Điểm: "+userbyrank.getScore());
+                                System.out.println("Email: "+userbyrank.getEmail());
+                            }
+                            break;
+                    }
+                    break;
 
                 case 5:
                     ketThuc = false;
+
 
             }
         }
