@@ -1,2 +1,1 @@
-userName=kiemnx###phone=0979155813###email=kiemnguyenxuan@gmail.com
-userName=luan###fullName=Nguyen Duc Luan###email=luan@gmail.com###phone=0987654321###score=8###password=abc@12346
+userName=kiemnx###fullName=Nguyen Xuan Kiem###email=kiemnguyenxuan@gmail.com###phone=0979155813###score=0###password=Admin123@

@@ -94,17 +94,19 @@ public class UserService implements UserInterface {
     @Override
     public void saveUserToDB(User user) throws IOException {
         List<User> users = readAllUserFromDB();
+        List<User> newUsers = new ArrayList<>();
         for(User user1 : users){
-            if(user1.getUserName().equals(user.getUserName())){
-                users.remove(user1);
+            if(!user1.getUserName().equals(user.getUserName())){
+                newUsers.add(user1);
             }
         }
 
+        newUsers.add(user);
         File file = new File("data/user.txt");
         String filePath = file.getAbsolutePath();
-        FileWriter fileWriter = new FileWriter(filePath, true);
+        FileWriter fileWriter = new FileWriter(filePath, false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for(User us : users) {
+        for(User us : newUsers) {
             bufferedWriter.write(us.toString());
             bufferedWriter.newLine();
             bufferedWriter.flush();
