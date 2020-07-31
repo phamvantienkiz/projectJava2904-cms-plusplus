@@ -72,32 +72,25 @@ public class Application {
                     String email = scanner.nextLine();
                     User findUserEmai = service.getUserByEmail(email);
                     if (findUserEmai != null){
-                        System.out.println("Để đảm bảo bạn là chủ sở hửu của tài khoản vui lòng nhập mật khẩu hiện tại");
-                        String passwordNow = scanner.nextLine();
-                        if (passwordNow.equals(findUserEmai.getPassword())){
-                            service.sendTokenToEmail(email);
-                            String usernames = findUserEmai.getUserName();
-                            System.out.println("Kiểm tra Email và nhập mã đổi mật khẩu: ");
-                            System.out.println("Nhập mã: ");
-                            String token = scanner.nextLine();
-                            if (service.checkToken(usernames, token) == true) {
-                                System.out.println("Mời nhập mật khẩu mới: ");
-                                String passwordNew = scanner.nextLine();
-                                System.out.println("Nhập lại mật khẩu ở trên: ");
-                                String passwordNew2 = scanner.nextLine();
-                                if (passwordNew.equals(passwordNew2)){
-                                    System.out.println("Đổi mật khẩu thành công !");
-                                    findUserEmai.setPassword(passwordNew);
-                                    service.saveUserToDB(findUserEmai);
-                                    break;
-                                } else {
-                                    System.out.println("Mật khẩu không trùng nhau vui lòng nhập lại");
-                                }
+                        String tokenCorrect = service.sendTokenToEmail(email);
+                        System.out.println("Kiểm tra Email và nhập mã đổi mật khẩu: ");
+                        System.out.println("Nhập mã: ");
+                        String token = scanner.nextLine();
+                        if (service.checkToken(tokenCorrect, token) == true) {
+                            System.out.println("Mời nhập mật khẩu mới: ");
+                            String passwordNew = scanner.nextLine();
+                            System.out.println("Nhập lại mật khẩu ở trên: ");
+                            String passwordNew2 = scanner.nextLine();
+                            if (passwordNew.equals(passwordNew2)){
+                                System.out.println("Đổi mật khẩu thành công !");
+                                findUserEmai.setPassword(passwordNew);
+                                service.saveUserToDB(findUserEmai);
+                                break;
                             } else {
-                                System.out.println("Mã không đúng kiểm tra và nhập lại");
+                                System.out.println("Mật khẩu không trùng nhau vui lòng nhập lại");
                             }
                         } else {
-                            System.out.println("Mật khẩu không đúng vui lòng nhập lại");
+                            System.out.println("Mã không đúng kiểm tra và nhập lại");
                         }
                     } else {
                         System.out.println("Không tìm thấy Email vui lòng nhập lại: ");
