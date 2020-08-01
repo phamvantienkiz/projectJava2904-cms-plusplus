@@ -34,8 +34,7 @@ public class Application {
                     "4. Tim kiem\n" +
                     "5. Ket thuc");
 
-            int option = scanner.nextInt();
-            scanner.nextLine();
+            int option = scanner.nextInt();scanner.nextLine();
             UserService service = new UserService();
             switch (option){
                 case 1:
@@ -46,8 +45,19 @@ public class Application {
                         System.out.println("Ten dang nhap da ton tai, moi ban chon ten khac");
                     } else {
                         userRe = new User();
+                        userRe.setUserName(userNameRegister);//new
                         System.out.println("Nhap vao fullName:");
                         String fullName =scanner.nextLine();
+                        userRe.setFullName(fullName);//new
+                        System.out.println("Nhập mật khẩu: ");//new
+                        String passWord = scanner.nextLine();//new
+                        userRe.setPassword(passWord);//new
+                        System.out.println("Nhập Email: ");//new
+                        String email = scanner.nextLine();//new
+                        userRe.setEmail(email);//new
+                        System.out.println("Nhập phone: ");//new
+                        String phone = scanner.nextLine();//new
+                        userRe.setPhone(phone);//new
                         service.saveUserToDB(userRe);
                     }
                     break;
@@ -99,7 +109,7 @@ public class Application {
                 case 4:
                     System.out.println("1.Tìm kiếm user theo tên\n "+
                             "2.Tìm kiếm user theo xếp hạng");
-                    int choose = scanner.nextInt();
+                    int choose = scanner.nextInt();scanner.nextLine();
                     switch (choose){
                         case 1:
                             System.out.println("Mời bạn nhập tên user:");

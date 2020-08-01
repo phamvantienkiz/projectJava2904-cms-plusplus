@@ -36,7 +36,7 @@ public class UserService implements UserInterface {
         List<User> users = new ArrayList<>();
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
-        File file = new File("data/user.txt");
+        File file = new File("E:/project/user-cms-plusplus/data/user.txt");
         String filePath = file.getAbsolutePath();
         try {
             fileReader = new FileReader(filePath);
@@ -102,7 +102,7 @@ public class UserService implements UserInterface {
         }
 
         newUsers.add(user);
-        File file = new File("data/user.txt");
+        File file = new File("E:/project/user-cms-plusplus/data/user.txt");
         String filePath = file.getAbsolutePath();
         FileWriter fileWriter = new FileWriter(filePath, false);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
